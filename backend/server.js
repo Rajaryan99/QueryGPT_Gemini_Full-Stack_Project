@@ -1,15 +1,13 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import 'dotenv/config';
+import OpenAI from 'openai';
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // This is the default and can be omitted
+});
 
-async function run() {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const response = await client.responses.create({
+  model: 'gpt-4o',
+  instructions: 'You are a coding assistant that talks like a pirate',
+  input: 'Are semicolons optional in JavaScript?',
+});
 
-  const prompt = "Are semicolons optional in JavaScript?";
-
-  const result = await model.generateContent(prompt);
-  console.log(result.response.text());
-}
-
-run();
+console.log(response.output_text);
