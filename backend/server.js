@@ -1,13 +1,17 @@
-import OpenAI from 'openai';
+import { GoogleGenAI } from "@google/genai";
+import 'dotenv/config'
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // This is the default and can be omitted
+
+const ai = new GoogleGenAI({
+  apikey : process.env.GEMINI_API_KEY
 });
 
-const response = await client.responses.create({
-  model: 'gpt-4o',
-  instructions: 'You are a coding assistant that talks like a pirate',
-  input: 'Are semicolons optional in JavaScript?',
-});
+async function main() {
+  const response = await ai.models.generateContent({
+    model: "gemini-2.5-flash",
+    contents: "Explain how AI works in a few words",
+  });
+  console.log(response.text);
+}
 
-console.log(response.output_text);
+await main();
