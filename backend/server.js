@@ -1,17 +1,21 @@
 import { GoogleGenAI } from "@google/genai";
 import 'dotenv/config'
+import  express from 'express';
 
 
-const ai = new GoogleGenAI({
-  apikey : process.env.GEMINI_API_KEY
-});
+const app = express();
 
-async function main() {
-  const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
-    contents: "Explain how AI works in a few words",
-  });
-  console.log(response.text);
-}
+const PORT =process.env.PORT;
 
-await main();
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.send("Hellow world, from Google Gemini");
+})
+
+app.listen(PORT, () => {
+  console.log(`server is running on http://localhost:${PORT}`);
+})
+
+
