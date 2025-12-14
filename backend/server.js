@@ -3,6 +3,7 @@ import 'dotenv/config'
 import express from 'express';
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import chatRoutes from './routes/Chat.js'
 
 
 const app = express();
@@ -10,6 +11,9 @@ const PORT = process.env.PORT;
 
 
 app.use(bodyParser.json());
+
+
+app.use('/api', chatRoutes)
 
 
 app.get('/', (req, res) => {
