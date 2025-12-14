@@ -1,30 +1,54 @@
 import { OpenRouter } from "@openrouter/sdk";
 import 'dotenv/config'
+import express from 'express';
+import bodyParser from "body-parser";
 
-const openrouter = new OpenRouter({
-  apiKey: process.env.OPENROUTER_API_KEY,
-});
 
-const stream = await openrouter.chat.send({
-  model: "openai/gpt-4o-mini",
-  messages: [
-    {
-      "role": "user",
-      "content": [
+const app = express();
+const PORT = process.env.PORT;
+
+
+app.use(bodyParser.json());
+
+
+app.get('/', (req, res) => {
+  res.send("hey, this is openAI");
+})
+
+
+
+
+app.post('/test', async (req, res) => {
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: 'openai/gpt-4o-mini',
+      messages: [
         {
-          "type": "text",
-          "text": "AI replace the programmer?"
-        },
-       
-      ]
-    }
-  ],
-  stream: true
-});
-
-for await (const chunk of stream) {
-  const content = chunk.choices[0]?.delta?.content;
-  if (content) {
-    process.stdout.write(content);
+          role: "user",
+          content: req.body.messages
+        }]
+    })
   }
-}
+
+
+  try {
+   const resopne = await fetch('https://openrouter.ai/api/v1/chat/completions', options);
+   const data = await resopne.json();
+   console.log(data);
+   res.send(data)
+
+  } catch (error) {
+    console.log(error)
+
+  }
+})
+
+app.listen(PORT, () => {
+  console.log(`server is running on http://localhost:${PORT}`)
+})
