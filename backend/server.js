@@ -38,13 +38,20 @@ app.post('/test', async (req, res) => {
 
 
   try {
-   const resopne = await fetch('https://openrouter.ai/api/v1/chat/completions', options);
-   const data = await resopne.json();
-   console.log(data);
-   res.send(data)
+   const response = await fetch('https://openrouter.ai/api/v1/chat/completions', options);
 
-  } catch (error) {
-    console.log(error)
+
+   const data = await response.json();
+  //  console.log(data.choices[0].message.content);
+   res.send(data.choices[0].message.content)
+
+  } 
+  
+  catch (error) {
+    console.error(
+      error.resopne?.data || error.messages
+    );
+    res.status(500).send("openRoute api error")
 
   }
 })
