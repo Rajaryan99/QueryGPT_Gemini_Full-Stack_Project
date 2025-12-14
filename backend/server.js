@@ -1,65 +1,30 @@
-import { GoogleGenAI } from "@google/genai";
+import { OpenRouter } from "@openrouter/sdk";
 import 'dotenv/config'
-import express from 'express';
-import cors from 'cors'
-import bodyParser from "body-parser";
 
-
-const app = express();
-
-const PORT = process.env.PORT;
-
-app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-app.use(bodyParser.json());
-app.use(cors());
-
-
-
-app.get('/', (req, res) => {
-  res.send("Hellow world, from Google Gemini");
-})
-
-app.post("/test", async (req, res) => {
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${process.env.GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contents: [{
-            parts: [{
-              text: req.body.message || "Hello"
-            }]
-          }]
-        })
-      }
-    );
-    
-    const data = await response.json();
-    console.log("API Response:", JSON.stringify(data, null, 2));
-    
-    if (data.error) {
-      return res.status(400).send({ error: data.error.message });
-    }
-    
-    if (!data.candidates || !data.candidates[0]) {
-      return res.status(500).send({ error: "No response from API" });
-    }
-    
-    const text = data.candidates[0].content.parts[0].text;
-    res.send({ result: text });
-    
-  } catch (error) {
-    console.log("Error:", error);
-    res.status(500).send({ error: "Failed to generate content" });
-  }
+const openrouter = new OpenRouter({
+  apiKey: process.env.OPENROUTER_API_KEY,
 });
 
+const stream = await openrouter.chat.send({
+  model: "openai/gpt-4o-mini",
+  messages: [
+    {
+      "role": "user",
+      "content": [
+        {
+          "type": "text",
+          "text": "AI replace the programmer?"
+        },
+       
+      ]
+    }
+  ],
+  stream: true
+});
 
-app.listen(PORT, () => {
-  console.log(`surever is running on http://localhost:${PORT}`)
-})
+for await (const chunk of stream) {
+  const content = chunk.choices[0]?.delta?.content;
+  if (content) {
+    process.stdout.write(content);
+  }
+}

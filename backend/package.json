@@ -5,9 +5,11 @@
   },
   "dependencies": {
     "@google/genai": "^1.33.0",
+    "@openrouter/sdk": "^0.2.11",
     "body-parser": "^2.2.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "openai": "^6.10.0"
   }
 }
