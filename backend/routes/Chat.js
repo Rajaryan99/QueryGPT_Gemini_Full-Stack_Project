@@ -7,8 +7,8 @@ router.post('/test', async(req, res) => {
     try {
 
         const thread = new Thread({
-            threadId: "xyzxxx",
-            title: "my test sample data"
+            threadId: "XXXX",
+            title: "my test sample data 2"
         })
 
         const resopnse = await thread.save();
@@ -19,6 +19,25 @@ router.post('/test', async(req, res) => {
     } catch (error) {
         console.error(error)
         res.status(500).json({error: "failed to save data "})
+    }
+});
+
+
+//get all threads
+
+router.get('/thread', async (req, res) => {
+
+    try {
+
+        const threads = await Thread.find({}).sort({updatedAt: -1})
+        res.json(threads)
+
+
+
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json('Failed to fetch Thread')
     }
 })
 
