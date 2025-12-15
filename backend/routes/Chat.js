@@ -58,20 +58,20 @@ router.get('/thread/threadId', async(req, res) => {
     }
 })
 
-router.delete('/thread/threadId', async(req, res) => {
+router.delete('/thread/:threadId', async(req, res) => {
     const {threadId}   = req.params;
     try {
 
         const deletedChat = await Thread.findOneAndDelete({threadId});
 
-        if(!chat) {
+        if(!deletedChat) {
             res.status(404).json({error: 'Chat Not Found'})
         }
 
         res.status(200).json({success: "Chat was deleted successfully!"})
         
     } catch (error) {
-         console.error(error);
+         console.log(error);
         res.status(500).json('Failed to delete')
     }
 });
@@ -116,7 +116,10 @@ router .post('/chat', async (req, res) => {
     }
 })
 
-
+router.get('/xx', async(req, res) => {
+    const chat = await Thread.find({});
+    res.send(chat);
+})
 
 
 
