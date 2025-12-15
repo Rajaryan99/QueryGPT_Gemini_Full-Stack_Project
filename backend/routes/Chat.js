@@ -1,5 +1,6 @@
 import express from 'express'
 import Thread from '../models/Thread.js'
+import getOpenAIAPIResponse from '../utils/openai.js'
 
 const router = express.Router();
 
@@ -73,6 +74,50 @@ router.delete('/thread/threadId', async(req, res) => {
          console.error(error);
         res.status(500).json('Failed to delete')
     }
+});
+
+
+router .post('/chat', async (req, res) => {
+
+    const {threadId, message} = req.body;
+
+    if(!threadId || !message){
+        res.status(400).json({error: "missiong required fields"})
+    }
+    try {
+
+        const chat = await Thread.findOne({threadId});
+
+        if(!threadId){
+            chat = new Thread({
+                threadId,
+                title: message,
+                messages: [{role: "user", content: message}]
+            })
+        } else {
+            chat.messages.push({role: "user", content: message})
+        }
+
+        const assistentReplay  = await getOpenAIAPIResponse(message);
+
+        chat.messages.push({role: "assistant", content: assistentReplay});
+        chat.updatedAt = new Date();
+
+        await chat.save();
+
+        res.json({replay: assistentReplay})
+
+
+        
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({error: "something went wrong"})
+        
+    }
 })
+
+
+
+
 
 export default router;
