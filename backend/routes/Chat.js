@@ -32,12 +32,45 @@ router.get('/thread', async (req, res) => {
         const threads = await Thread.find({}).sort({updatedAt: -1})
         res.json(threads)
 
-
-
         
     } catch (error) {
         console.error(error);
         res.status(500).json('Failed to fetch Thread')
+    }
+})
+
+router.get('/thread/threadId', async(req, res) => {
+
+    const {threadId}   = req.params;
+    try {
+
+        const chat = await  Thread.findOne({threadId});
+
+        if(!chat) {
+            res.status(404).json({error: 'chat not found'})
+        }
+        res.json(chat.messages);
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json('Failed to fetch Chat')
+    }
+})
+
+router.delete('/thread/threadId', async(req, res) => {
+    const {threadId}   = req.params;
+    try {
+
+        const deletedChat = await Thread.findOneAndDelete({threadId});
+
+        if(!chat) {
+            res.status(404).json({error: 'Chat could not be deleted...'})
+        }
+        res.status(200).json({success: "Chat was deleted successfully!"})
+        
+    } catch (error) {
+         console.error(error);
+        res.status(500).json('Failed to delete')
     }
 })
 
