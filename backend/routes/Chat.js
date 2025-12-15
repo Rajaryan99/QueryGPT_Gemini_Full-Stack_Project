@@ -64,8 +64,9 @@ router.delete('/thread/threadId', async(req, res) => {
         const deletedChat = await Thread.findOneAndDelete({threadId});
 
         if(!chat) {
-            res.status(404).json({error: 'Chat could not be deleted...'})
+            res.status(404).json({error: 'Chat Not Found'})
         }
+
         res.status(200).json({success: "Chat was deleted successfully!"})
         
     } catch (error) {
