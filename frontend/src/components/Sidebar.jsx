@@ -15,9 +15,9 @@ export default function Sidebar() {
       {/* history */}
 
         <ul className='history'>
-          <li>history1</li>
-          <li>history1</li>
-          <li>history1</li>
+          <li>Thread1</li>
+          <li>Thread2</li>
+          <li>Thread3</li>
         </ul>
       {/* sign */}
 

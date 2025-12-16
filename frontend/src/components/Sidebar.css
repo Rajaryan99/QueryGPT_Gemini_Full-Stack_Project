@@ -1,3 +1,5 @@
+
+
 .sidebar {
     background-color: #171717;
     color: #b4b4b4 ;
@@ -26,9 +28,43 @@ button {
     border: solid rgba(255, 255, 255, 0.5);
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+    
 }
 
+
+button:hover{
+     background-color: rgba(180, 180, 180, 0.05);
+}
 button span {
     font-size: 20px;
+}
+
+
+
+.history {
+    margin: 10px;
+    padding: 10px;
+    height: 100%;
+    
+}
+
+.history li {
+    list-style: none;
+    cursor: pointer;
+    padding: 2px 5px;
+    margin-bottom: 0.3rem;
+    font-size: 17px;
+    border: solid 10px transparent;
+}
+
+.history li:hover {
+     background-color: rgba(180, 180, 180, 0.05);
+     border-radius: 10px;
+
+}
+
+.sign {
+    
 }
 
