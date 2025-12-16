@@ -25,7 +25,7 @@ button {
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
-    border: solid rgba(255, 255, 255, 0.5);
+    border: solid 0.5px rgba(255, 255, 255, 0.5);
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
@@ -65,6 +65,10 @@ button span {
 }
 
 .sign {
-    
+    padding: 10px;
+    margin: 10px;
+    font-size: 17px;
+    text-align: center;
+    border-top: solid 0.25px rgba(255, 255, 255, 0.5)
 }
 
