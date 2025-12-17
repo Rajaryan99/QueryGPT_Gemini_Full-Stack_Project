@@ -14,11 +14,13 @@ export default function ChatWindow() {
       <Chat/>
 
       <div className="chatInput">
-        <div className="userInput">
+        <div className="inputBox">
           <input type="text" placeholder='Ask anything' />
-          <div id='send'><i className="fa-solid fa-paper-plane"></i></div>
+                  <div id='send'><i className="fa-solid fa-paper-plane"></i></div>
+
         </div>
-        <p>QueryGPT can make mistake. Check important info. See Cookie Preference.</p>
+
+        <p className='info'>QueryGPT can make mistake. Check important info. See Cookie Preference.</p>
         
 
       </div>
