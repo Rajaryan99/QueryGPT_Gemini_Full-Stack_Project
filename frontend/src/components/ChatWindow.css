@@ -81,4 +81,21 @@ input:focus{
 }
 
 
-#send {}
+#send {
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 15px;
+    /* background-color: #339cff; */
+    font-size: 21px;
+    transition:  0.2s all ease-out;
+}
+
+#send:hover {
+    transform: scale(1.2);
+    color: #fff;
+}
