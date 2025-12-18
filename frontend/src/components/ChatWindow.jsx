@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './ChatWindow.css'
 import Chat from './Chat'
+import { MyContext } from '../Context'
 
 export default function ChatWindow() {
+
+  const {prompt, setPrompt, reply, setReply} = useContext(MyContext)
+
+
   return (
     <div className='chatWindow'>
       <div className="navbar">
