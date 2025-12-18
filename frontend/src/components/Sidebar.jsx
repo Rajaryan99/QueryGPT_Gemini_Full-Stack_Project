@@ -9,7 +9,7 @@ export default function Sidebar() {
       <button>
         <img src="src/assets/blacklogo.png" alt="logo" className='logo' />
 
-        <span><i class="fa-regular fa-pen-to-square"></i></span>
+        <span><i className="fa-regular fa-pen-to-square"></i></span>
       </button>
 
       {/* history */}
