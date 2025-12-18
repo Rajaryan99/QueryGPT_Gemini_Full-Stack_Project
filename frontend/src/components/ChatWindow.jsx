@@ -25,6 +25,7 @@ export default function ChatWindow() {
      const response = await fetch('http://localhost:7000/api/chat', option);
      const data = await response.json();
      console.log(data)
+     setReply(data.reply)
       
     } catch (error) {
       console.log(error)
@@ -43,7 +44,7 @@ export default function ChatWindow() {
 
       <div className="chatInput">
         <div className="inputBox">
-          <input type="text" placeholder='Ask anything' value={prompt}  onChange={(e) => setPrompt(e.target.value)} />
+          <input type="text" placeholder='Ask anything' value={prompt}  onChange={(e) => setPrompt(e.target.value)}  onKeyDown={(e) => e.key === 'Enter' ? getReply() : ''}/>
                   <div id='send' onClick={getReply}><i className="fa-solid fa-paper-plane"></i></div>
 
         </div>
