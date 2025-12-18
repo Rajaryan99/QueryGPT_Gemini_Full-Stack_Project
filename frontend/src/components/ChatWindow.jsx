@@ -20,7 +20,7 @@ export default function ChatWindow() {
 
       <div className="chatInput">
         <div className="inputBox">
-          <input type="text" placeholder='Ask anything' />
+          <input type="text" placeholder='Ask anything' value={prompt}  onChange={(e) => setPrompt(e.target.value)} />
                   <div id='send'><i className="fa-solid fa-paper-plane"></i></div>
 
         </div>
