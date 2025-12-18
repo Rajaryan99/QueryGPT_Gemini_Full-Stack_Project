@@ -86,9 +86,9 @@ router .post('/chat', async (req, res) => {
     }
     try {
 
-        const chat = await Thread.findOne({threadId});
+        let chat = await Thread.findOne({threadId});
 
-        if(!threadId){
+        if(!chat){
             chat = new Thread({
                 threadId,
                 title: message,
