@@ -4,18 +4,26 @@ import { MyContext } from '../Context'
 
 
 export default function Chat() {
-  const { newChat, prevChats } = useContext(MyContext);
+  const { newChat, pervChats } = useContext(MyContext);
+  // console.log("pervChats:", pervChats);
+
   return (
     <>
-      {newChat && <h1>Tho Chaliye Suru karte hai!!</h1>}
+      {newChat && <h1>Start New Chat</h1>}
       <div className="chats">
-        <div className="userDiv">
-          <p className='userMessage'>User Message</p>
-        </div>
+    {
+        pervChats?.map((chat, idx) => 
+          <div className={chat.role === "user"? "userDiv" : "GPTdiv"} key={idx}>
 
-        <div className="GPTdiv">
-          <p className='GPTmessage'>GPT generated message</p>
-        </div>
+            {
+              chat.role === "user"? <p className='userMessage'> {chat.content}</p> : 
+              <p className='GPTmessage'>{chat.content}</p>
+            }
+          </div>
+        )
+    }
+
+       
       </div>
     </>
   )

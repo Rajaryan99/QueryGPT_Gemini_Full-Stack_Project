@@ -3,16 +3,16 @@ import Sidebar from './components/Sidebar.jsx'
 import ChatWindow from './components/ChatWindow.jsx'
 import { MyContext } from './Context.jsx'
 import { useState } from 'react'
-import {v1 as uuidV1} from 'uuid'
+import {v1 as uuidv1} from 'uuid'
 
 
 function App() {
 
   const [prompt, setPrompt] = useState("");
   const [reply, setReply] = useState(null);
-  const [currThreadId, setcurrThreadId] = useState(uuidV1());
-  const [pervCahts, setPervChats] = useState([]);
-  const [newChat, setNewChat] = useState(true);
+  const [currThreadId, setcurrThreadId] = useState(uuidv1());
+  const [pervChats, setPervChats] = useState([]);
+  const [newChat, setNewChat] = useState(false);
 
 
   const providerValues = {
@@ -20,7 +20,7 @@ function App() {
     reply, setReply,
     currThreadId, setcurrThreadId,
     newChat, setNewChat,
-    pervCahts, setPervChats
+    pervChats, setPervChats
 
   };
 
