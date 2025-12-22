@@ -10,11 +10,11 @@ export default function Chat() {
       {newChat && <h1>Tho Chaliye Suru karte hai!!</h1>}
       <div className="chats">
         <div className="userDiv">
-          <p>User Message</p>
+          <p className='userMessage'>User Message</p>
         </div>
 
         <div className="GPTdiv">
-          <p>GPT generated message</p>
+          <p className='GPTmessage'>GPT generated message</p>
         </div>
       </div>
     </>
