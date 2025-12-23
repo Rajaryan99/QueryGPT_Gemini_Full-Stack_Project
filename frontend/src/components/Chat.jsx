@@ -1,6 +1,9 @@
 import { useContext } from 'react'
 import './Chat.css'
 import { MyContext } from '../Context'
+import ReactMarkdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
+
 
 
 export default function Chat() {
@@ -17,7 +20,7 @@ export default function Chat() {
 
             {
               chat.role === "user"? <p className='userMessage'> {chat.content}</p> : 
-              <p className='GPTmessage'>{chat.content}</p>
+              <ReactMarkdown rehypePlugins={rehypeHighlight} >{chat.content}</ReactMarkdown>
             }
           </div>
         )
