@@ -88,3 +88,8 @@ button span {
 .fa-trash:hover {
     color: #f14859 !important;
 }
+
+.highlighted {
+    background-color: rgba(180, 180, 180, 0.05);
+    border-radius: 6px;
+}

@@ -68,7 +68,7 @@ export default function Sidebar() {
         createNewChat();
       }
 
-      
+
     } catch (error) {
       console.log(error)
     }
@@ -90,7 +90,9 @@ export default function Sidebar() {
       <ul className='history'>
         {
           allThreads?.map((thread, idx) => (
-            <li key={idx} onClick={(e) => changeThread(thread.threadId)} >
+            <li key={idx} onClick={(e) => changeThread(thread.threadId)}
+            className={thread.threadId === currThreadId ? "highlighted": ""}
+             >
               {thread.title}
               <i className="fa-solid fa-trash"
                 onClick={(e) => {
