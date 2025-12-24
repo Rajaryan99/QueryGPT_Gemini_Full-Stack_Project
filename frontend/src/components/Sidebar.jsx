@@ -12,7 +12,9 @@ export default function Sidebar() {
 
      const res =  await fetch('http://localhost:7000/api/thread');
      const data = await res.json();
-     console.log(data)
+      const filterData = data.map(thread => ({threadId: thread.threadId, title: thread.title}))
+     console.log(filterData)
+     setAllThreads(filterData)
       
     } catch (error) {
       console.log(error)
@@ -36,9 +38,11 @@ export default function Sidebar() {
       {/* history */}
 
         <ul className='history'>
-          <li>Thread1</li>
-          <li>Thread2</li>
-          <li>Thread3</li>
+          {
+              allThreads?.map((thread, idx) => (
+                <li key={idx} >{thread.title}</li>
+              ))
+          }
         </ul>
       {/* sign */}
 
