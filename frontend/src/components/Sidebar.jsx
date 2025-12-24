@@ -69,7 +69,10 @@ export default function Sidebar() {
         <ul className='history'>
           {
               allThreads?.map((thread, idx) => (
-                <li key={idx} onClick={(e) => changeThread(thread.threadId)} >{thread.title}</li>
+                <li key={idx} onClick={(e) => changeThread(thread.threadId)} >
+                  {thread.title}
+                  <i className="fa-solid fa-trash"></i>
+                  </li>
               ))
           }
         </ul>
