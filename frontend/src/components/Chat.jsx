@@ -13,6 +13,12 @@ export default function Chat() {
   // console.log("pervChats:", pervChats);
 
   useEffect(() => {
+
+    if(reply === null){
+      setLatestReply(null);
+      return
+    }
+
     if(!pervChats?.length) return
 
     const content = reply.split(" "); // word by word split
@@ -52,6 +58,15 @@ export default function Chat() {
       pervChats.length > 0 && latestReply !== null && 
       <div className='GPTdiv' key={"typing"}>
       <ReactMarkdown rehypePlugins={[rehypeHighlight]} >{latestReply}</ReactMarkdown>
+
+      </div>
+    }
+
+    
+    {
+      pervChats.length > 0 && latestReply === null && 
+      <div className='GPTdiv' key={"non-typing"}>
+      <ReactMarkdown rehypePlugins={[rehypeHighlight]} >{pervChats[pervChats.length-1].content}</ReactMarkdown>
 
       </div>
     }

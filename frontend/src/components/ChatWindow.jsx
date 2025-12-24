@@ -6,14 +6,14 @@ import { ScaleLoader } from 'react-spinners'
 
 export default function ChatWindow() {
 
-  const { prompt, setPrompt, reply, setReply, currThreadId, setPervChats } = useContext(MyContext)
+  const { prompt, setPrompt, setNewChat, reply, setReply, currThreadId, setPervChats } = useContext(MyContext)
 
   const [loading, setLoading] = useState(false)
 
 
   const getReply = async () => {
-    console.log('message', prompt, "threadId", currThreadId)
     setLoading(true);
+    setNewChat(false)
     // const userMessage  = prompt;
 
     const option = {

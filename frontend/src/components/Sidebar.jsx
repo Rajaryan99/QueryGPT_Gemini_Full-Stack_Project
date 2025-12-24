@@ -14,7 +14,7 @@ export default function Sidebar() {
      const res =  await fetch('http://localhost:7000/api/thread');
      const data = await res.json();
       const filterData = data.map(thread => ({threadId: thread.threadId, title: thread.title}))
-     console.log(filterData)
+    // console.log(filterData)
      setAllThreads(filterData)
       
     } catch (error) {
@@ -45,6 +45,9 @@ export default function Sidebar() {
      const res =  await fetch(`http://localhost:7000/api/thread/${newThreadId}`)
      const data = await res.json();
      console.log(data)
+     setPervChats(data);
+     setNewChat(false);
+     setReply(null)
       
     } catch (error) {
       console.log(error)
