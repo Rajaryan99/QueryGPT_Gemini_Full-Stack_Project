@@ -40,7 +40,7 @@ router.get('/thread', async (req, res) => {
     }
 })
 
-router.get('/thread/threadId', async(req, res) => {
+router.get('/thread/:threadId', async(req, res) => {
 
     const {threadId}   = req.params;
     try {
