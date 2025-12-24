@@ -61,11 +61,15 @@ export default function ChatWindow() {
     setPrompt("");
   }, [reply])
 
+  const handleProfileClick = () => {
+    setIsOpen(!isOpen)
+  }
+
   return (
     <div className='chatWindow'>
       <div className="navbar">
         <span>QueryGPT <i className="fa-solid fa-angle-down"></i></span>
-        <div className="userIconDiv">
+        <div className="userIconDiv" onClick={handleProfileClick}>
           <span><i className="fa-solid fa-user"></i></span>
         </div>
       </div>
