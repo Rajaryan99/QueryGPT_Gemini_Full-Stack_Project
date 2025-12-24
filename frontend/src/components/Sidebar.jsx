@@ -62,7 +62,13 @@ export default function Sidebar() {
     console.log(data)
 
       //updated threads
-      setAllThreads(prev => prev.filter(thread => thread.threadId !== threadId))
+      setAllThreads(prev => prev.filter(thread => thread.threadId !== threadId));
+
+      if(threadId  === currThreadId){
+        createNewChat();
+      }
+
+      
     } catch (error) {
       console.log(error)
     }
