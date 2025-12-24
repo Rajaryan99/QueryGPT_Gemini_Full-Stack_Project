@@ -1,7 +1,28 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import './Sidebar.css'
+import { MyContext } from '../Context'
 
 export default function Sidebar() {
+
+  const {allThreads, setAllThreads, currThreadId} = useContext(MyContext)
+
+  const getAllThreads = async () => {
+
+    try {
+
+     const res =  await fetch('http://localhost:7000/api/thread');
+     const data = await res.json();
+     console.log(data)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getAllThreads();
+  }, [currThreadId])
+
   return (
     <section className='sidebar'>
       {/* new chat button */}
