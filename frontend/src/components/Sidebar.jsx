@@ -1,22 +1,22 @@
 import React, { useContext, useEffect } from 'react'
 import './Sidebar.css'
 import { MyContext } from '../Context'
-import {v1 as uuidv1} from 'uuid'
+import { v1 as uuidv1 } from 'uuid'
 
 export default function Sidebar() {
 
-  const {allThreads, setAllThreads, currThreadId, setPrompt,setReply, setcurrThreadId, setPervChats, setNewChat} = useContext(MyContext)
+  const { allThreads, setAllThreads, currThreadId, setPrompt, setReply, setcurrThreadId, setPervChats, setNewChat } = useContext(MyContext)
 
   const getAllThreads = async () => {
 
     try {
 
-     const res =  await fetch('http://localhost:7000/api/thread');
-     const data = await res.json();
-      const filterData = data.map(thread => ({threadId: thread.threadId, title: thread.title}))
-    // console.log(filterData)
-     setAllThreads(filterData)
-      
+      const res = await fetch('http://localhost:7000/api/thread');
+      const data = await res.json();
+      const filterData = data.map(thread => ({ threadId: thread.threadId, title: thread.title }))
+      // console.log(filterData)
+      setAllThreads(filterData)
+
     } catch (error) {
       console.log(error)
     }
@@ -42,20 +42,30 @@ export default function Sidebar() {
 
     try {
 
-     const res =  await fetch(`http://localhost:7000/api/thread/${newThreadId}`)
-     const data = await res.json();
-     console.log(data)
-     setPervChats(data);
-     setNewChat(false);
-     setReply(null)
-      
+      const res = await fetch(`http://localhost:7000/api/thread/${newThreadId}`)
+      const data = await res.json();
+      console.log(data)
+      setPervChats(data);
+      setNewChat(false);
+      setReply(null)
+
     } catch (error) {
       console.log(error)
     }
   }
 
-  const deleteThread = async () => {
+  const deleteThread = async (threadId) => {
+    try {
 
+      const res  = await fetch(`http://localhost:7000/api/thread/${threadId}`, {method: 'DELETE'});
+    const data = await res.json();
+    console.log(data)
+
+      //updated threads
+      setAllThreads(prev => prev.filter(thread => thread.threadId !== threadId))
+    } catch (error) {
+      console.log(error)
+    }
 
   }
 
@@ -71,22 +81,27 @@ export default function Sidebar() {
 
       {/* history */}
 
-        <ul className='history'>
-          {
-              allThreads?.map((thread, idx) => (
-                <li key={idx} onClick={(e) => changeThread(thread.threadId)} >
-                  {thread.title}
-                  <i className="fa-solid fa-trash" onClick={deleteThread}></i>
-                  </li>
-              ))
-          }
-        </ul>
+      <ul className='history'>
+        {
+          allThreads?.map((thread, idx) => (
+            <li key={idx} onClick={(e) => changeThread(thread.threadId)} >
+              {thread.title}
+              <i className="fa-solid fa-trash"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteThread(thread.threadId)
+                }}
+                ></i>
+            </li>
+          ))
+        }
+      </ul>
       {/* sign */}
 
       <div className='sign'>
         <p>QueryGPT &hearts;</p>
       </div>
-      
+
     </section>
   )
 }
