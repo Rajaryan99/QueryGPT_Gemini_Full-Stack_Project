@@ -54,6 +54,11 @@ export default function Sidebar() {
     }
   }
 
+  const deleteThread = async () => {
+
+
+  }
+
   return (
     <section className='sidebar'>
       {/* new chat button */}
@@ -71,7 +76,7 @@ export default function Sidebar() {
               allThreads?.map((thread, idx) => (
                 <li key={idx} onClick={(e) => changeThread(thread.threadId)} >
                   {thread.title}
-                  <i className="fa-solid fa-trash"></i>
+                  <i className="fa-solid fa-trash" onClick={deleteThread}></i>
                   </li>
               ))
           }
