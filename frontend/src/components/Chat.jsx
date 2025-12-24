@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './Chat.css'
 import { MyContext } from '../Context'
 import ReactMarkdown from 'react-markdown'
@@ -8,23 +8,50 @@ import 'highlight.js/styles/github-dark.css'
 
 
 export default function Chat() {
-  const { newChat, pervChats } = useContext(MyContext);
+  const { newChat, pervChats, reply } = useContext(MyContext);
+  const [latestReply, setLatestReply] = useState(null);
   // console.log("pervChats:", pervChats);
+
+  useEffect(() => {
+    if(!pervChats?.length) return
+
+    const content = reply.split(" ");
+
+    let idx = 0;
+    const interval = setInterval(() => {
+
+      setLatestReply(content.slice(0, idx+1).join(" "));
+
+      idx++;
+      if(idx >= content.length) clearInterval(interval);
+    }, 40)
+
+    return () => clearInterval(interval)
+
+  }, [pervChats, reply])
 
   return (
     <>
       {newChat && <h1>Start New Chat</h1>}
       <div className="chats">
     {
-        pervChats?.map((chat, idx) => 
+        pervChats?.slice(0, -1).map((chat, idx) => 
           <div className={chat.role === "user"? "userDiv" : "GPTdiv"} key={idx}>
 
             {
               chat.role === "user"? <p className='userMessage'> {chat.content}</p> : 
-              <ReactMarkdown rehypePlugins={rehypeHighlight} >{chat.content}</ReactMarkdown>
+              <ReactMarkdown rehypePlugins={[rehypeHighlight]} >{chat.content}</ReactMarkdown>
             }
           </div>
         )
+    }
+
+    {
+      pervChats.length > 0 && latestReply !== null && 
+      <div className='GPTdiv' key={"typing"}>
+      <ReactMarkdown rehypePlugins={[rehypeHighlight]} >{latestReply}</ReactMarkdown>
+
+      </div>
     }
 
        
