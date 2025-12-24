@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react'
 import './Sidebar.css'
 import { MyContext } from '../Context'
+import {v1 as uuidv1} from 'uuid'
 
 export default function Sidebar() {
 
-  const {allThreads, setAllThreads, currThreadId} = useContext(MyContext)
+  const {allThreads, setAllThreads, currThreadId, setPrompt,setReply, setcurrThreadId, setPervChats, setNewChat} = useContext(MyContext)
 
   const getAllThreads = async () => {
 
@@ -25,11 +26,21 @@ export default function Sidebar() {
     getAllThreads();
   }, [currThreadId])
 
+  const createNewChat = () => {
+    setNewChat(true);
+    setPrompt("")
+    setReply(null);
+    setcurrThreadId(uuidv1());
+    setPervChats([])
+
+
+  }
+
   return (
     <section className='sidebar'>
       {/* new chat button */}
 
-      <button>
+      <button onClick={createNewChat}>
         <img src="src/assets/blacklogo.png" alt="logo" className='logo' />
 
         <span><i className="fa-regular fa-pen-to-square"></i></span>
