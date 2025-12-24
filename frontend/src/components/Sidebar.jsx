@@ -36,6 +36,21 @@ export default function Sidebar() {
 
   }
 
+
+  const changeThread = async (newThreadId) => {
+    setcurrThreadId(newThreadId);
+
+    try {
+
+     const res =  await fetch(`http://localhost:7000/api/thread/${newThreadId}`)
+     const data = await res.json();
+     console.log(data)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <section className='sidebar'>
       {/* new chat button */}
@@ -51,7 +66,7 @@ export default function Sidebar() {
         <ul className='history'>
           {
               allThreads?.map((thread, idx) => (
-                <li key={idx} >{thread.title}</li>
+                <li key={idx} onClick={(e) => changeThread(thread.threadId)} >{thread.title}</li>
               ))
           }
         </ul>
