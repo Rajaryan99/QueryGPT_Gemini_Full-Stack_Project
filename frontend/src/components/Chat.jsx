@@ -15,13 +15,14 @@ export default function Chat() {
   useEffect(() => {
     if(!pervChats?.length) return
 
-    const content = reply.split("");
+    const content = reply.split(" "); // word by word split
+    // const content = reply.split("");// character  by chracter split
 
     let idx = 0;
     const interval = setInterval(() => {
 
-      // setLatestReply(content.slice(0, idx+1).join(" ")); //word by word split 
-        setLatestReply(content.slice(0, idx+1).join(""));  
+       setLatestReply(content.slice(0, idx+1).join(" ")); //word by word split 
+        // setLatestReply(content.slice(0, idx+1).join("")); // character by character 
 
       idx++;
       if(idx >= content.length) clearInterval(interval);
