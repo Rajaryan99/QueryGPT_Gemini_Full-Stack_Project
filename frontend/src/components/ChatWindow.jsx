@@ -9,6 +9,7 @@ export default function ChatWindow() {
   const { prompt, setPrompt, setNewChat, reply, setReply, currThreadId, setPervChats } = useContext(MyContext)
 
   const [loading, setLoading] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
 
   const getReply = async () => {
@@ -68,6 +69,16 @@ export default function ChatWindow() {
           <span><i className="fa-solid fa-user"></i></span>
         </div>
       </div>
+
+      {
+        isOpen && 
+        <div className="dropDown">
+          <div className="dropDownItems"> <i class="fa-solid fa-cloud-arrow-up"></i> Upgrade Plan</div>
+          <div className="dropDownItems"><i class="fa-solid fa-gear"></i> Settings</div>
+          <div className="dropDownItems"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
+          
+        </div>
+      }
       <Chat />
 
       <ScaleLoader color='#fff' loading={loading} />
