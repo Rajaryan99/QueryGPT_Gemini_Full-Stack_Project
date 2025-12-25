@@ -30,7 +30,7 @@ export default function ChatWindow() {
 
     try {
 
-      const response = await fetch('http://localhost:7000/api/chat', option);
+      const response = await fetch('/api/chat', option); //http://localhost:7000
       const data = await response.json();
       console.log(data)
       setReply(data.replay)

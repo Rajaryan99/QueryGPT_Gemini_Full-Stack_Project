@@ -11,7 +11,7 @@ export default function Sidebar() {
 
     try {
 
-      const res = await fetch('http://localhost:7000/api/thread');
+      const res = await fetch('/api/thread'); //http://localhost:7000
       const data = await res.json();
       const filterData = data.map(thread => ({ threadId: thread.threadId, title: thread.title }))
       // console.log(filterData)
@@ -42,7 +42,7 @@ export default function Sidebar() {
 
     try {
 
-      const res = await fetch(`http://localhost:7000/api/thread/${newThreadId}`)
+      const res = await fetch(`/api/thread/${newThreadId}`) //http://localhost:7000
       const data = await res.json();
       console.log(data)
       setPervChats(data);
@@ -57,7 +57,7 @@ export default function Sidebar() {
   const deleteThread = async (threadId) => {
     try {
 
-      const res  = await fetch(`http://localhost:7000/api/thread/${threadId}`, {method: 'DELETE'});
+      const res  = await fetch(`/api/thread/${threadId}`, {method: 'DELETE'}); //http://localhost:7000
     const data = await res.json();
     console.log(data)
 
