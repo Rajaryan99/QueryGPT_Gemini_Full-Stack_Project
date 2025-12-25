@@ -13,8 +13,9 @@ const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(cors({
-  origin: `${process.env.FRONDEND_URL}`,
-  credentials: true
+  origin: "*",
+  credentials: true,
+  methods: ["GET", "POST", "DELETE"],
 }))
 
 
