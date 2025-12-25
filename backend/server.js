@@ -13,7 +13,7 @@ const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: `${process.env.FRONDEND_URL}`,
   credentials: true
 }))
 
