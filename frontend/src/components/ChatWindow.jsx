@@ -4,6 +4,7 @@ import Chat from './Chat'
 import { MyContext } from '../Context'
 import { ScaleLoader } from 'react-spinners'
 
+const API_URL =  import.meta.env.VITE_BACKEND_URL;
 export default function ChatWindow() {
 
   const { prompt, setPrompt, setNewChat, reply, setReply, currThreadId, setPervChats } = useContext(MyContext)
@@ -30,7 +31,7 @@ export default function ChatWindow() {
 
     try {
 
-      const response = await fetch('/api/chat', option); //http://localhost:7000
+      const response = await fetch(`${API_URL}/api/chat`, option); //http://localhost:7000
       const data = await response.json();
       console.log(data)
       setReply(data.replay)
